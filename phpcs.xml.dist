@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ruleset name="YamlComments">
+  <description>The coding standard for klausi/yaml_comments.</description>
+
+  <rule ref="PSR2" />
+  <file>.</file>
+  <exclude-pattern>*/vendor/*</exclude-pattern>
+
+  <rule ref="Generic.Arrays.DisallowLongArraySyntax" />
+</ruleset>

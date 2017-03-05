@@ -1,0 +1,24 @@
+{
+    "name": "klausi/yaml_comments",
+    "description": "YAML parser that also reads/writes comment lines",
+    "type": "library",
+    "require": {
+        "symfony/yaml": "^3.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": ">=4 <6"
+    },
+    "license": "GPLv2+",
+    "authors": [
+        {
+            "name": "Klaus Purer",
+            "email": "klaus.purer@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Klausi\\YamlComments\\": "" },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    }
+}
