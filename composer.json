@@ -2,8 +2,11 @@
     "name": "klausi/yaml_comments",
     "description": "YAML parser that also reads/writes comment lines",
     "type": "library",
+    "keywords": [ "yaml" ],
+    "homepage": "https://github.com/klausi/yaml_comments",
     "require": {
-        "symfony/yaml": "^3.2"
+        "php": ">=5.5",
+        "symfony/yaml": ">=2"
     },
     "require-dev": {
         "phpunit/phpunit": ">=4 <6",
