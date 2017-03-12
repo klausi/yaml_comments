@@ -44,16 +44,16 @@ class YamlComments
      *   (Optional) A bit field of PARSE_* constants to customize the YAML
      *   parser behavior. See \Symfony\Component\Yaml\Yaml::parse().
      *
-     * @return static
+     * @return ParseResult
      *
      * @throws ParseException
      *   If the YAML is not valid.
      */
     public static function parse($yamlString, $flags = 0)
     {
-        $yaml = Yaml::parse($yamlString, $flags);
-        $comments = static::parseComments($yamlString);
-        return new static($yaml, $comments);
+        $yaml = new Parser();
+
+        return $yaml->parse($yamlString, $flags);
     }
 
     /**
