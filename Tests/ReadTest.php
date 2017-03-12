@@ -86,4 +86,24 @@ EOF;
         $this->assertSame(6, $parseResult->getLineNumber('timestamp'));
         $this->assertSame(7, $parseResult->getLineNumber('version'));
     }
+
+    public function testReferenceLines()
+    {
+        $yaml = <<<'EOF'
+- &hello
+    Meat: pork
+    Starch: potato
+- banana
+- *hello
+EOF;
+        $parseResult = YamlComments::parse($yaml);
+        print_r($parseResult);
+        $this->assertSame(1, $parseResult->getLineNumber(0));
+        $this->assertSame(2, $parseResult->getLineNumber([0, 'Meat']));
+        $this->assertSame(3, $parseResult->getLineNumber([0, 'Starch']));
+        $this->assertSame(4, $parseResult->getLineNumber(1));
+        $this->assertSame(5, $parseResult->getLineNumber(2));
+        $this->assertSame(5, $parseResult->getLineNumber([2, 'Meat']));
+        $this->assertSame(5, $parseResult->getLineNumber([2, 'Starch']));
+    }
 }

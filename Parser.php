@@ -133,10 +133,10 @@ class Parser
 
                 // array
                 if (!isset($values['value']) || '' == trim($values['value'], ' ') || 0 === strpos(ltrim($values['value'], ' '), '#')) {
-                    $lineNumbers[ParseResult::LINE_NUMBER_KEY] = $this->getRealCurrentLineNb() + 1;
-                    $result = $this->parseBlock($this->getRealCurrentLineNb() + 1, $this->getNextEmbedBlock(null, true), $flags);
+                    $currentLineNr = $this->getRealCurrentLineNb() + 1;
+                    $result = $this->parseBlock($currentLineNr, $this->getNextEmbedBlock(null, true), $flags);
                     $data[] = $result->getData();
-                    $lineNumbers[] = $result->getLineNumbers();
+                    $lineNumbers[] = $result->getLineNumbers() + [ParseResult::LINE_NUMBER_KEY => $currentLineNr];
                 } else {
                     if (isset($values['leadspaces'])
                         && preg_match('#^(?P<key>'.Inline::REGEX_QUOTED_STRING.'|[^ \'"\{\[].*?) *\:(\s+(?P<value>.+?))?\s*$#u', $values['value'], $matches)

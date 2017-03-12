@@ -64,9 +64,17 @@ class ParseResult
         if (!is_array($keyPath)) {
             $keyPath = [$keyPath];
         }
+        // @todo throw exception if key path is invalid in data.
+
         $lineNumbers = $this->lineNumbers;
+        $data = $this->data;
         foreach ($keyPath as $key) {
+            // Embedded references: just return the line of the reference.
+            if (isset($data[$key]) && !isset($lineNumbers[$key])) {
+                return $lineNumbers;
+            }
             $lineNumbers = $lineNumbers[$key];
+            $data = $data[$key];
         }
 
         if (is_array($lineNumbers)) {
