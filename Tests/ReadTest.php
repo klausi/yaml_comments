@@ -35,7 +35,7 @@ EOF;
     /**
      * Tests retrieving the line number for any given key.
      */
-    /*public function testLineNumber()
+    public function testLineNumber()
     {
         $yaml = <<<'EOF'
 name: Node
@@ -53,19 +53,19 @@ dependencies:
   # Some comment here.
   - rules
 EOF;
-        $yamlComments = YamlComments::parse($yaml);
-        $this->assertSame(1, $yamlComments->getLineNumber('name'));
-        $this->assertSame(2, $yamlComments->getLineNumber('type'));
-        $this->assertSame(4, $yamlComments->getLineNumber('description'));
-        $this->assertSame(5, $yamlComments->getLineNumber('package'));
-        $this->assertSame(6, $yamlComments->getLineNumber('version'));
-        $this->assertSame(7, $yamlComments->getLineNumber('core'));
-        $this->assertSame(8, $yamlComments->getLineNumber('configure'));
-        $this->assertSame(9, $yamlComments->getLineNumber('dependencies'));
-        $this->assertSame(10, $yamlComments->getLineNumber(['dependencies', 0]));
-        $this->assertSame(11, $yamlComments->getLineNumber(['dependencies', 1]));
-        $this->assertSame(12, $yamlComments->getLineNumber(['dependencies', 2]));
-        $this->assertSame(14, $yamlComments->getLineNumber(['dependencies', 3]));
+        $yamlResult = YamlComments::parse($yaml);
+        $this->assertSame(1, $yamlResult->getLineNumber('name'));
+        $this->assertSame(2, $yamlResult->getLineNumber('type'));
+        $this->assertSame(4, $yamlResult->getLineNumber('description'));
+        $this->assertSame(5, $yamlResult->getLineNumber('package'));
+        $this->assertSame(6, $yamlResult->getLineNumber('version'));
+        $this->assertSame(7, $yamlResult->getLineNumber('core'));
+        $this->assertSame(8, $yamlResult->getLineNumber('configure'));
+        $this->assertSame(9, $yamlResult->getLineNumber('dependencies'));
+        $this->assertSame(10, $yamlResult->getLineNumber(['dependencies', 0]));
+        $this->assertSame(11, $yamlResult->getLineNumber(['dependencies', 1]));
+        $this->assertSame(12, $yamlResult->getLineNumber(['dependencies', 2]));
+        $this->assertSame(14, $yamlResult->getLineNumber(['dependencies', 3]));
     }
 
     public function testEmptyLine()
@@ -79,11 +79,11 @@ project: test
 timestamp: 1234567
 version: 1.2
 EOF;
-        $yamlComments = YamlComments::parse($yaml);
-        $this->assertSame(1, $yamlComments->getLineNumber('core'));
-        $this->assertSame(2, $yamlComments->getLineNumber('name'));
-        $this->assertSame(5, $yamlComments->getLineNumber('project'));
-        $this->assertSame(6, $yamlComments->getLineNumber('timestamp'));
-        $this->assertSame(7, $yamlComments->getLineNumber('version'));
-    }*/
+        $yamlResult = YamlComments::parse($yaml);
+        $this->assertSame(1, $yamlResult->getLineNumber('core'));
+        $this->assertSame(2, $yamlResult->getLineNumber('name'));
+        $this->assertSame(5, $yamlResult->getLineNumber('project'));
+        $this->assertSame(6, $yamlResult->getLineNumber('timestamp'));
+        $this->assertSame(7, $yamlResult->getLineNumber('version'));
+    }
 }

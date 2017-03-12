@@ -40,7 +40,7 @@ class Inline
      *
      * @throws ParseException
      */
-    public static function parse($value, $flags = 0, $references = array())
+    public static function parse($value, $flags = 0, $references = [])
     {
         if (is_bool($flags)) {
             @trigger_error('Passing a boolean flag to toggle exception handling is deprecated since version 3.1 and will be removed in 4.0. Use the Yaml::PARSE_EXCEPTION_ON_INVALID_TYPE flag instead.', E_USER_DEPRECATED);
@@ -70,7 +70,7 @@ class Inline
             if (func_num_args() >= 5) {
                 $references = func_get_arg(4);
             } else {
-                $references = array();
+                $references = [];
             }
         }
 
@@ -101,7 +101,7 @@ class Inline
                 ++$i;
                 break;
             default:
-                $result = self::parseScalar($value, $flags, null, array('"', "'"), $i, true, $references);
+                $result = self::parseScalar($value, $flags, null, ['"', "'"], $i, true, $references);
         }
 
         // some comments are allowed at the end
@@ -250,7 +250,7 @@ class Inline
     {
         // array
         if ($value && !self::isHash($value)) {
-            $output = array();
+            $output = [];
             foreach ($value as $val) {
                 $output[] = self::dump($val, $flags);
             }
@@ -259,7 +259,7 @@ class Inline
         }
 
         // hash
-        $output = array();
+        $output = [];
         foreach ($value as $key => $val) {
             $output[] = sprintf('%s: %s', self::dump($key, $flags), self::dump($val, $flags));
         }
@@ -284,7 +284,7 @@ class Inline
      *
      * @internal
      */
-    public static function parseScalar($scalar, $flags = 0, $delimiters = null, $stringDelimiters = array('"', "'"), &$i = 0, $evaluate = true, $references = array())
+    public static function parseScalar($scalar, $flags = 0, $delimiters = null, $stringDelimiters = ['"', "'"], &$i = 0, $evaluate = true, $references = [])
     {
         if (in_array($scalar[$i], $stringDelimiters)) {
             // quoted scalar
@@ -372,9 +372,9 @@ class Inline
      *
      * @throws ParseException When malformed inline YAML string is parsed
      */
-    private static function parseSequence($sequence, $flags, &$i = 0, $references = array())
+    private static function parseSequence($sequence, $flags, &$i = 0, $references = [])
     {
-        $output = array();
+        $output = [];
         $len = strlen($sequence);
         ++$i;
 
@@ -395,8 +395,8 @@ class Inline
                 case ' ':
                     break;
                 default:
-                    $isQuoted = in_array($sequence[$i], array('"', "'"));
-                    $value = self::parseScalar($sequence, $flags, array(',', ']'), array('"', "'"), $i, true, $references);
+                    $isQuoted = in_array($sequence[$i], ['"', "'"]);
+                    $value = self::parseScalar($sequence, $flags, [',', ']'], ['"', "'"], $i, true, $references);
 
                     // the value can be an array if a reference has been resolved to an array var
                     if (is_string($value) && !$isQuoted && false !== strpos($value, ': ')) {
@@ -432,9 +432,9 @@ class Inline
      *
      * @throws ParseException When malformed inline YAML string is parsed
      */
-    private static function parseMapping($mapping, $flags, &$i = 0, $references = array())
+    private static function parseMapping($mapping, $flags, &$i = 0, $references = [])
     {
-        $output = array();
+        $output = [];
         $len = strlen($mapping);
         ++$i;
 
@@ -454,13 +454,13 @@ class Inline
             }
 
             // key
-            $key = self::parseScalar($mapping, $flags, array(':', ' '), array('"', "'"), $i, false);
+            $key = self::parseScalar($mapping, $flags, [':', ' '], ['"', "'"], $i, false);
 
             if (':' !== $key && false === $i = strpos($mapping, ':', $i)) {
                 break;
             }
 
-            if (':' !== $key && (!isset($mapping[$i + 1]) || !in_array($mapping[$i + 1], array(' ', ',', '[', ']', '{', '}'), true))) {
+            if (':' !== $key && (!isset($mapping[$i + 1]) || !in_array($mapping[$i + 1], [' ', ',', '[', ']', '{', '}'], true))) {
                 @trigger_error('Using a colon that is not followed by an indication character (i.e. " ", ",", "[", "]", "{", "}" is deprecated since version 3.2 and will throw a ParseException in 4.0.', E_USER_DEPRECATED);
             }
 
@@ -499,7 +499,7 @@ class Inline
                     case ' ':
                         break;
                     default:
-                        $value = self::parseScalar($mapping, $flags, array(',', '}'), array('"', "'"), $i, true, $references);
+                        $value = self::parseScalar($mapping, $flags, [',', '}'], ['"', "'"], $i, true, $references);
                         // Spec: Keys MUST be unique; first one wins.
                         // Parser cannot abort this mapping earlier, since lines
                         // are processed sequentially.
@@ -534,7 +534,7 @@ class Inline
      *
      * @throws ParseException when object parsing support was disabled and the parser detected a PHP object or when a reference could not be resolved
      */
-    private static function evaluateScalar($scalar, $flags, $references = array())
+    private static function evaluateScalar($scalar, $flags, $references = [])
     {
         $scalar = trim($scalar);
         $scalarLower = strtolower($scalar);
@@ -642,7 +642,7 @@ class Inline
                             @trigger_error('Using the comma as a group separator for floats is deprecated since version 3.2 and will be removed in 4.0.', E_USER_DEPRECATED);
                         }
 
-                        return (float) str_replace(array(',', '_'), '', $scalar);
+                        return (float) str_replace([',', '_'], '', $scalar);
                     case preg_match(self::getTimestampRegex(), $scalar):
                         if (Yaml::PARSE_DATETIME & $flags) {
                             // When no timezone is provided in the parsed date, YAML spec says we must assume UTC.
