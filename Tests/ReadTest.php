@@ -97,7 +97,6 @@ EOF;
 - *hello
 EOF;
         $parseResult = YamlComments::parse($yaml);
-        print_r($parseResult);
         $this->assertSame(1, $parseResult->getLineNumber(0));
         $this->assertSame(2, $parseResult->getLineNumber([0, 'Meat']));
         $this->assertSame(3, $parseResult->getLineNumber([0, 'Starch']));
