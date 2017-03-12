@@ -133,7 +133,7 @@ class Parser
 
                 // array
                 if (!isset($values['value']) || '' == trim($values['value'], ' ') || 0 === strpos(ltrim($values['value'], ' '), '#')) {
-                    $lineNumbers['__yaml_line_number'] = $this->getRealCurrentLineNb() + 1;
+                    $lineNumbers[ParseResult::LINE_NUMBER_KEY] = $this->getRealCurrentLineNb() + 1;
                     $result = $this->parseBlock($this->getRealCurrentLineNb() + 1, $this->getNextEmbedBlock(null, true), $flags);
                     $data[] = $result->getData();
                     $lineNumbers[] = $result->getLineNumbers();
@@ -147,7 +147,7 @@ class Parser
                             $block .= "\n".$this->getNextEmbedBlock($this->getCurrentLineIndentation() + strlen($values['leadspaces']) + 1);
                         }
 
-                        $lineNumbers['__yaml_line_number'] = $this->getRealCurrentLineNb() + 1;
+                        $lineNumbers[ParseResult::LINE_NUMBER_KEY] = $this->getRealCurrentLineNb() + 1;
                         $result = $this->parseBlock($this->getRealCurrentLineNb(), $block, $flags);
                         $data[] = $result->getData();
                         $lineNumbers[] = $result->getLineNumbers();
@@ -257,7 +257,7 @@ class Parser
                         if ($allowOverwrite || !isset($data[$key])) {
                             $data[$key] = $value;
                             $lineNumbers[$key] = $result->getLineNumbers();
-                            $lineNumbers[$key]['__yaml_line_number'] = $realCurrentLineNbKey + 1;
+                            $lineNumbers[$key][ParseResult::LINE_NUMBER_KEY] = $realCurrentLineNbKey + 1;
                         } else {
                             @trigger_error(sprintf('Duplicate key "%s" detected on line %d whilst parsing YAML. Silent handling of duplicate mapping keys in YAML is deprecated since version 3.2 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0.', $key, $realCurrentLineNbKey + 1), E_USER_DEPRECATED);
                         }

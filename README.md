@@ -2,6 +2,10 @@
 Parses YAML and provides comments with their line numbers as well as the line
 number of any given key of the document structure.
 
+The parser was copied and modified from the
+[Symfony YAML component](http://symfony.com/doc/current/components/yaml.html),
+MIT license Copyright (c) 2004-2017 Fabien Potencier
+
 ## Usage
 
 ```php
@@ -24,12 +28,12 @@ dependencies:
   - rules
 EOF;
 
-$yamlComments = YamlComments::parse($exampleYaml);
+$parseResult = YamlComments::parse($exampleYaml);
 ```
 
 Get the comment lines of this document:
 ```php
-print_r($yamlComments->getComments());
+print_r($parseResult->getComments());
 ```
 ```
 Array
@@ -41,10 +45,10 @@ Array
 
 Get the line number of a particular key:
 ```php
-print $yamlComments->getLineNumber('name');
+print $parseResult->getLineNumber('name');
 1
-print $yamlComments->getLineNumber('description');
+print $parseResult->getLineNumber('description');
 4
-print $yamlComments->getLineNumber(['dependencies', 3]);
+print $parseResult->getLineNumber(['dependencies', 3]);
 14
 ```

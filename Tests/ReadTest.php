@@ -27,9 +27,9 @@ dependencies:
   # Some comment here.
   - rules
 EOF;
-        $yamlResult = YamlComments::parse($yaml);
-        $this->assertSame(Yaml::parse($yaml), $yamlResult->getData());
-        $this->assertSame([12 => '  # Some comment here.'], $yamlResult->getComments());
+        $parseResult = YamlComments::parse($yaml);
+        $this->assertSame(Yaml::parse($yaml), $parseResult->getData());
+        $this->assertSame([12 => '  # Some comment here.'], $parseResult->getComments());
     }
 
     /**
@@ -53,19 +53,19 @@ dependencies:
   # Some comment here.
   - rules
 EOF;
-        $yamlResult = YamlComments::parse($yaml);
-        $this->assertSame(1, $yamlResult->getLineNumber('name'));
-        $this->assertSame(2, $yamlResult->getLineNumber('type'));
-        $this->assertSame(4, $yamlResult->getLineNumber('description'));
-        $this->assertSame(5, $yamlResult->getLineNumber('package'));
-        $this->assertSame(6, $yamlResult->getLineNumber('version'));
-        $this->assertSame(7, $yamlResult->getLineNumber('core'));
-        $this->assertSame(8, $yamlResult->getLineNumber('configure'));
-        $this->assertSame(9, $yamlResult->getLineNumber('dependencies'));
-        $this->assertSame(10, $yamlResult->getLineNumber(['dependencies', 0]));
-        $this->assertSame(11, $yamlResult->getLineNumber(['dependencies', 1]));
-        $this->assertSame(12, $yamlResult->getLineNumber(['dependencies', 2]));
-        $this->assertSame(14, $yamlResult->getLineNumber(['dependencies', 3]));
+        $parseResult = YamlComments::parse($yaml);
+        $this->assertSame(1, $parseResult->getLineNumber('name'));
+        $this->assertSame(2, $parseResult->getLineNumber('type'));
+        $this->assertSame(4, $parseResult->getLineNumber('description'));
+        $this->assertSame(5, $parseResult->getLineNumber('package'));
+        $this->assertSame(6, $parseResult->getLineNumber('version'));
+        $this->assertSame(7, $parseResult->getLineNumber('core'));
+        $this->assertSame(8, $parseResult->getLineNumber('configure'));
+        $this->assertSame(9, $parseResult->getLineNumber('dependencies'));
+        $this->assertSame(10, $parseResult->getLineNumber(['dependencies', 0]));
+        $this->assertSame(11, $parseResult->getLineNumber(['dependencies', 1]));
+        $this->assertSame(12, $parseResult->getLineNumber(['dependencies', 2]));
+        $this->assertSame(14, $parseResult->getLineNumber(['dependencies', 3]));
     }
 
     public function testEmptyLine()
@@ -79,11 +79,11 @@ project: test
 timestamp: 1234567
 version: 1.2
 EOF;
-        $yamlResult = YamlComments::parse($yaml);
-        $this->assertSame(1, $yamlResult->getLineNumber('core'));
-        $this->assertSame(2, $yamlResult->getLineNumber('name'));
-        $this->assertSame(5, $yamlResult->getLineNumber('project'));
-        $this->assertSame(6, $yamlResult->getLineNumber('timestamp'));
-        $this->assertSame(7, $yamlResult->getLineNumber('version'));
+        $parseResult = YamlComments::parse($yaml);
+        $this->assertSame(1, $parseResult->getLineNumber('core'));
+        $this->assertSame(2, $parseResult->getLineNumber('name'));
+        $this->assertSame(5, $parseResult->getLineNumber('project'));
+        $this->assertSame(6, $parseResult->getLineNumber('timestamp'));
+        $this->assertSame(7, $parseResult->getLineNumber('version'));
     }
 }

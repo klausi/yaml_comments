@@ -2,13 +2,44 @@
 
 namespace Klausi\YamlComments;
 
+/**
+ * Holds all data after a YAML file has been parsed.
+ */
 class ParseResult
 {
 
+    /**
+     * Magic array key used in $this->lineNumbers for nested structures.
+     */
+    const LINE_NUMBER_KEY = '__yaml_line_number';
+
+    /**
+     * The parsed data.
+     *
+     * @var mixed
+     */
     private $data;
+
+    /**
+     * Nested array of line numbers for the parsed data.
+     *
+     * Has the same structure as $this->data except that the array leafs are
+     * line numbers instead of parsed values.
+     *
+     * @var array
+     */
     private $lineNumbers;
+
+    /**
+     * The comment lines, indexed by line number.
+     *
+     * @var string[]
+     */
     private $comments;
 
+    /**
+     * Constructor.
+     */
     public function __construct($data, array $lineNumbers = [], array $comments = [])
     {
         $this->data = $data;
@@ -39,7 +70,7 @@ class ParseResult
         }
 
         if (is_array($lineNumbers)) {
-            $lineNumbers = $lineNumbers['__yaml_line_number'];
+            $lineNumbers = $lineNumbers[self::LINE_NUMBER_KEY];
         }
 
         return $lineNumbers;
