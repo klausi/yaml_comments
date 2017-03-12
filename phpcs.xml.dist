@@ -7,4 +7,11 @@
   <exclude-pattern>*/vendor/*</exclude-pattern>
 
   <rule ref="Generic.Arrays.DisallowLongArraySyntax" />
+
+  <rule ref="Generic.Files.LineLength">
+    <exclude name="Generic.Files.LineLength.TooLong"/>
+  </rule>
+  <rule ref="PSR2.ControlStructures.SwitchDeclaration">
+    <exclude name="PSR2.ControlStructures.SwitchDeclaration.TerminatingComment"/>
+  </rule>
 </ruleset>
