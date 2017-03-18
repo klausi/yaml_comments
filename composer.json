@@ -5,12 +5,12 @@
     "keywords": [ "yaml" ],
     "homepage": "https://github.com/klausi/yaml_comments",
     "require": {
-        "php": ">=5.5",
-        "symfony/yaml": ">=2"
+        "php": ">=5.5"
     },
     "require-dev": {
         "phpunit/phpunit": ">=4 <6",
-        "squizlabs/php_codesniffer": ">=2"
+        "squizlabs/php_codesniffer": ">=2",
+        "symfony/yaml": ">=3"
     },
     "license": "GPLv2+",
     "authors": [

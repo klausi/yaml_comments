@@ -7,7 +7,7 @@
 
 namespace Klausi\YamlComments;
 
-use Symfony\Component\Yaml\Exception\ParseException;
+use Klausi\YamlComments\Exception\ParseException;
 
 /**
  * Unescaper encapsulates unescaping rules for single and double-quoted

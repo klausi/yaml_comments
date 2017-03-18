@@ -7,9 +7,9 @@
 
 namespace Klausi\YamlComments;
 
-use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\Yaml\Exception\DumpException;
-use Symfony\Component\Yaml\Yaml;
+use Klausi\YamlComments\Exception\DumpException;
+use Klausi\YamlComments\Exception\ParseException;
+use Klausi\YamlComments\YamlComments as Yaml;
 
 /**
  * Inline implements a YAML parser/dumper for the YAML inline syntax.

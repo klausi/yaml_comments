@@ -1,14 +1,14 @@
 <?php
 
 /**
- * This file has been copied from the Symfony YAML package because we need to
- * preserve line numbers and comments from the parsing process.
+ * This file has been copied from the Symfony YAML package because we override
+ * many internals and don't want to depend on symfony/yaml.
  */
 
 namespace Klausi\YamlComments;
 
-use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\Yaml\Yaml;
+use Klausi\YamlComments\Exception\ParseException;
+use Klausi\YamlComments\YamlComments as Yaml;
 
 /**
  * Parser parses YAML strings to convert them to PHP arrays.
