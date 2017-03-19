@@ -136,7 +136,11 @@ class Parser
                     $currentLineNr = $this->getRealCurrentLineNb() + 1;
                     $result = $this->parseBlock($currentLineNr, $this->getNextEmbedBlock(null, true), $flags);
                     $data[] = $result->getData();
-                    $lineNumbers[] = $result->getLineNumbers() + [ParseResult::LINE_NUMBER_KEY => $currentLineNr];
+                    if (empty($result->getData())) {
+                        $lineNumbers[] = $currentLineNr;
+                    } else {
+                        $lineNumbers[] = $result->getLineNumbers() + [ParseResult::LINE_NUMBER_KEY => $currentLineNr];
+                    }
                 } else {
                     if (isset($values['leadspaces'])
                         && preg_match('#^(?P<key>'.Inline::REGEX_QUOTED_STRING.'|[^ \'"\{\[].*?) *\:(\s+(?P<value>.+?))?\s*$#u', $values['value'], $matches)
