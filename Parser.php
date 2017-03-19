@@ -145,14 +145,19 @@ class Parser
                     if (isset($values['leadspaces'])
                         && preg_match('#^(?P<key>'.Inline::REGEX_QUOTED_STRING.'|[^ \'"\{\[].*?) *\:(\s+(?P<value>.+?))?\s*$#u', $values['value'], $matches)
                     ) {
+                        $currentLineNr = $this->getRealCurrentLineNb();
                         // this is a compact notation element, add to next block and parse
                         $block = $values['value'];
                         if ($this->isNextLineIndented()) {
                             $block .= "\n".$this->getNextEmbedBlock($this->getCurrentLineIndentation() + strlen($values['leadspaces']) + 1);
+                        } else {
+                            //The current line pointer has moved, refresh it if
+                            //the next line is not indented.
+                            $currentLineNr = $this->getRealCurrentLineNb();
                         }
 
                         $lineNumbers[ParseResult::LINE_NUMBER_KEY] = $this->getRealCurrentLineNb() + 1;
-                        $result = $this->parseBlock($this->getRealCurrentLineNb(), $block, $flags);
+                        $result = $this->parseBlock($currentLineNr, $block, $flags);
                         $data[] = $result->getData();
                         $lineNumbers[] = $result->getLineNumbers();
                     } else {
