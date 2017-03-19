@@ -246,13 +246,14 @@ class Parser
                     // Merge keys
                 } elseif (!isset($values['value']) || '' == trim($values['value'], ' ') || 0 === strpos(ltrim($values['value'], ' '), '#')) {
                     // hash
+                    $realCurrentLineNbKey = $this->getRealCurrentLineNb();
                     // if next line is less indented or equal, then it means that the current value is null
                     if (!$this->isNextLineIndented() && !$this->isNextLineUnIndentedCollection()) {
                         // Spec: Keys MUST be unique; first one wins.
                         // But overwriting is allowed when a merge node is used in current block.
                         if ($allowOverwrite || !isset($data[$key])) {
                             $data[$key] = null;
-                            $lineNumbers[$key] = $this->getRealCurrentLineNb() + 1;
+                            $lineNumbers[$key] = $realCurrentLineNbKey + 1;
                         } else {
                             @trigger_error(sprintf('Duplicate key "%s" detected on line %d whilst parsing YAML. Silent handling of duplicate mapping keys in YAML is deprecated since version 3.2 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0.', $key, $this->getRealCurrentLineNb() + 1), E_USER_DEPRECATED);
                         }
