@@ -10,7 +10,12 @@ yaml: |
 php: |
     array('seq' => array('a', 'b', 'c'))
 line_numbers: |
-    array('seq' => array(0 => 1, 1 => 1, 2 => 1))
+    array('seq' => array(
+      0 => 1,
+      1 => 1,
+      2 => 1,
+      '__yaml_line_number' => 1,
+    ))
 ---
 test: Simple Inline Hash
 brief: >
@@ -25,7 +30,11 @@ yaml: |
 php: |
     array('hash' => array('name' => 'Steve', 'foo' => 'bar'))
 line_numbers: |
-    array('seq' => array(0 => 1, 1 => 1, 2 => 1))
+    array('hash' => array(
+      'name' => 1,
+      'foo' => 1,
+      '__yaml_line_number' => 1,
+    ))
 ---
 test: Multi-line Inline Collections
 todo: true

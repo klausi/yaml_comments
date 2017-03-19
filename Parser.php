@@ -272,7 +272,17 @@ class Parser
                     // But overwriting is allowed when a merge node is used in current block.
                     if ($allowOverwrite || !isset($data[$key])) {
                         $data[$key] = $value;
-                        $lineNumbers[$key] = $this->getRealCurrentLineNb() + 1;
+                        $realLineNr = $this->getRealCurrentLineNb() + 1;
+                        if (is_scalar($value)) {
+                            $lineNumbers[$key] = $realLineNr;
+                        } else {
+                            // Sequence on the same line: fill all array keys
+                            // with the current line number.
+                            $lineNumbers[$key] = array_map(function() use ($realLineNr) {
+                                return $realLineNr;
+                            }, $value);
+                            $lineNumbers[$key][ParseResult::LINE_NUMBER_KEY] = $realLineNr;
+                        }
                     } else {
                         @trigger_error(sprintf('Duplicate key "%s" detected on line %d whilst parsing YAML. Silent handling of duplicate mapping keys in YAML is deprecated since version 3.2 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0.', $key, $this->getRealCurrentLineNb() + 1), E_USER_DEPRECATED);
                     }
