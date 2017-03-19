@@ -267,12 +267,12 @@ class Parser
                         }
                     }
                 } else {
+                    $realLineNr = $this->getRealCurrentLineNb() + 1;
                     $value = $this->parseValue($values['value'], $flags, $context);
                     // Spec: Keys MUST be unique; first one wins.
                     // But overwriting is allowed when a merge node is used in current block.
                     if ($allowOverwrite || !isset($data[$key])) {
                         $data[$key] = $value;
-                        $realLineNr = $this->getRealCurrentLineNb() + 1;
                         if (is_scalar($value)) {
                             $lineNumbers[$key] = $realLineNr;
                         } else {
