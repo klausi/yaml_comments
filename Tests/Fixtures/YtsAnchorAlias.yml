@@ -1,4 +1,4 @@
---- %YAML:1.0
+---
 test: Simple Alias Example
 brief: >
     If you need to refer to the same item of data twice,
@@ -17,7 +17,6 @@ php: |
     array('Steve', 'Clark', 'Brian', 'Oren', 'Steve')
 line_numbers: |
     array(0 => 1, 1 => 2, 2 => 3, 3 => 4, 4 => 5)
-
 ---
 test: Alias of a Mapping
 brief: >

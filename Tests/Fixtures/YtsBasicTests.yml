@@ -1,4 +1,4 @@
---- %YAML:1.0
+---
 test: Simple Sequence
 brief: |
     You can specify a list in YAML by placing each
