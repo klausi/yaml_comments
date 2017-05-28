@@ -105,4 +105,17 @@ EOF;
         $this->assertSame(5, $parseResult->getLineNumber([2, 'Meat']));
         $this->assertSame(5, $parseResult->getLineNumber([2, 'Starch']));
     }
+
+    public function testComplexYamlFile()
+    {
+        $yaml = file_get_contents(__DIR__ . '/Fixtures/services.yml');
+        $parseResult = YamlComments::parse($yaml);
+
+        $this->assertSame(10, $parseResult->getLineNumber(['parameters', 'session.storage.options', 'gc_probability']));
+        $this->assertSame(19, $parseResult->getLineNumber(['parameters', 'session.storage.options', 'gc_maxlifetime']));
+        $this->assertSame(58, $parseResult->getLineNumber(['parameters', 'twig.config', 'debug']));
+        $this->assertSame(162, $parseResult->getLineNumber(['parameters', 'cors.config', 'enabled']));
+        $this->assertSame(178, $parseResult->getLineNumber(['parameters', 'cors.config', 'exposedHeaders']));
+    }
+
 }
