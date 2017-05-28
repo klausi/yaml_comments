@@ -279,7 +279,7 @@ class Parser
                     // But overwriting is allowed when a merge node is used in current block.
                     if ($allowOverwrite || !isset($data[$key])) {
                         $data[$key] = $value;
-                        if (is_scalar($value)) {
+                        if (is_scalar($value) || $value === NULL) {
                             $lineNumbers[$key] = $realLineNr;
                         } else {
                             // Sequence on the same line: fill all array keys
