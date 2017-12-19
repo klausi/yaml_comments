@@ -3,9 +3,10 @@
 namespace Klausi\YamlComments\Tests;
 
 use Klausi\YamlComments\YamlComments;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Yaml;
 
-class ReadTest extends \PHPUnit_Framework_TestCase
+class ReadTest extends TestCase
 {
     /**
      * Tests that the YAML and the comment lines are parsed correctly.
